@@ -1,0 +1,889 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{SDS\_383D\_Exercise\_2}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{scipy} \PY{k}{as} \PY{n+nn}{sp}
+        \PY{k+kn}{import} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{stats} \PY{k}{as} \PY{n+nn}{sps}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        \PY{n}{np}\PY{o}{.}\PY{n}{set\PYZus{}printoptions}\PY{p}{(}\PY{n}{suppress}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{the-conjugate-gaussian-linear-model}{%
+\subsection{The Conjugate Gaussian Linear
+Model}\label{the-conjugate-gaussian-linear-model}}
+
+\hypertarget{basics}{%
+\subsubsection{Basics}\label{basics}}
+
+\hypertarget{part-d}{%
+\paragraph{Part (D)}\label{part-d}}
+
+By ``fitted line'', my understanding is that this is the line of
+\(\mathbf{y} = \mathbf{X\hat{\beta}}\), in which \(\mathbf{y}\) is the
+dependent variable country's GDP growth rate (GR6096), \(\mathbf{X}\) is
+the independent variable the country's level of defense spending as a
+fraction of its GDP (DEF60), and \(\mathbf{\hat{\beta}}\) is the mean of
+\(\mathbf{\beta}\)'s posterior distribution -- note that this mean term
+is the same for conditional posterior and marginal posterior, both of
+which doesn't have the term \(\omega\). We have such mean term as
+\[\mathbf{\hat{\beta}} = \mathbf{U^{-1}V^T}\] in which
+\(\mathbf{U}=\mathbf{X^T\Lambda X+K}\),
+\(\mathbf{V}=\mathbf{y^T\Lambda X+m^TK}\).
+
+As the problem suggested, we set
+\(\mathbf{\Lambda}=\mathbf{I}_{2\times 2}\), and
+\(\mathbf{K}=\text{diag}(K_1,K_2)\) be something vague -- I pick
+\(K_1 = K_2 = 0.1\). Moreover, I pick the prior mean of
+\(\mathbf{\beta}\) as
+\(\mathbf{m}=\begin{bmatrix}0.1, 0.1\end{bmatrix}^T\) -- with the
+precision so vague, this prior mean term won't have too much effect on
+posterior parameter \(\mathbf{\hat{\beta}}\).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{gdpgrowth}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gdpgrowth.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{n} \PY{o}{=} \PY{n}{gdpgrowth}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+        \PY{n}{y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{gdpgrowth}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GR6096}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{n}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{X} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{p}{(}\PY{n}{n}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{gdpgrowth}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DEF60}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{n}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{k}{def} \PY{n+nf}{basic\PYZus{}normal\PYZus{}gamma}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{m}\PY{p}{,} \PY{n}{K}\PY{p}{)}\PY{p}{:}
+            \PY{n}{Lambda} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{identity}\PY{p}{(}\PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+            \PY{n}{U} \PY{o}{=} \PY{p}{(}\PY{n}{X}\PY{o}{.}\PY{n}{T}\PY{p}{)}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{Lambda}\PY{p}{)}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{o}{+}\PY{n}{K}
+            \PY{n}{V} \PY{o}{=} \PY{p}{(}\PY{n}{y}\PY{o}{.}\PY{n}{T}\PY{p}{)}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{Lambda}\PY{p}{)}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{o}{+}\PY{p}{(}\PY{n}{m}\PY{o}{.}\PY{n}{T}\PY{p}{)}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{K}\PY{p}{)}
+            \PY{n}{Beta\PYZus{}hat} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{inv}\PY{p}{(}\PY{n}{U}\PY{p}{)}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{V}\PY{o}{.}\PY{n}{T}\PY{p}{)}
+            \PY{k}{return} \PY{n}{Beta\PYZus{}hat}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}160}]:} \PY{n}{Beta\PYZus{}hat} \PY{o}{=} \PY{n}{basic\PYZus{}normal\PYZus{}gamma}\PY{p}{(}\PY{n}{X}\PY{o}{=}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{y}\PY{p}{,} \PY{n}{m}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{o}{.}\PY{l+m+mi}{1}\PY{p}{,}\PY{o}{.}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{T}\PY{p}{,} \PY{n}{K}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{diag}\PY{p}{(}\PY{p}{[}\PY{o}{.}\PY{l+m+mi}{1}\PY{p}{,}\PY{o}{.}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}213}]:} \PY{n}{basic\PYZus{}normal\PYZus{}gamma}\PY{p}{(}\PY{n}{X}\PY{o}{=}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{y}\PY{p}{,} \PY{n}{m}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mf}{0.}\PY{p}{,}\PY{l+m+mf}{0.}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{T}\PY{p}{,} \PY{n}{K}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{diag}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{0.}\PY{p}{,}\PY{l+m+mf}{0.}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}213}]:} array([[0.01176803],
+                 [0.20650591]])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}212}]:} \PY{c+c1}{\PYZsh{} OLS fit}
+          \PY{n}{beta\PYZus{}OLS} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{inv}\PY{p}{(}\PY{p}{(}\PY{n}{X}\PY{o}{.}\PY{n}{T}\PY{p}{)}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{X}\PY{o}{.}\PY{n}{T}\PY{p}{)}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{y}\PY{p}{)}
+          \PY{n}{beta\PYZus{}OLS}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}212}]:} array([[0.01176803],
+                 [0.20650591]])
+\end{Verbatim}
+            
+    Plot fitted line along with scatter plot of original point, also adding
+in the OLS fit later -- note that the posterior mean of \(\beta\) when
+setting all hyperparameters to \(0\) or \(\mathbf{0}\) is exactly the
+same as the OLS \(\beta\):
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}218}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{s}\PY{o}{=}\PY{l+m+mi}{7}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{X}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{Beta\PYZus{}hat}\PY{p}{)}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mediumseagreen}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{9}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Basic NG}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{X}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{inv}\PY{p}{(}\PY{p}{(}\PY{n}{X}\PY{o}{.}\PY{n}{T}\PY{p}{)}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{X}\PY{o}{.}\PY{n}{T}\PY{p}{)}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{y}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{orange}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{9}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{OLS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{best}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Fitted Line Using Posterior \PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{mathbf}\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{beta\PYZcb{}\PYZdl{} Mean with Uninformative Prior}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{DEF60}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GR6096}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}218}]:} Text(0, 0.5, 'GR6096')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{a-heavy-tailed-error-model}{%
+\subsubsection{A Heavy-Tailed Error
+Model}\label{a-heavy-tailed-error-model}}
+
+\hypertarget{part-c}{%
+\paragraph{Part (C)}\label{part-c}}
+
+We have the posterior conditional distributions specified in notes, thus
+we go straight to code up the Gibbs Sampler:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}102}]:} \PY{c+c1}{\PYZsh{} \PYZsh{} raw\PYZhy{}code version}
+          \PY{c+c1}{\PYZsh{} \PYZsh{} Initialize hyperparameters}
+          \PY{c+c1}{\PYZsh{} p = X.shape[1]}
+          \PY{c+c1}{\PYZsh{} m, K, d, eta, h, iteration, seed = np.array([.1,.1]).T, np.diag([.1]*X.shape[1]), 1., 1., 1., 1000, 2019}
+          \PY{c+c1}{\PYZsh{} \PYZsh{} Sample Lambda, omega and beta from their posterior conditional distributions respectively: for Gibbs Sampling,}
+          \PY{c+c1}{\PYZsh{} \PYZsh{} all parameters depend on each other, thus we need to start with some parameter having some value already \PYZhy{}\PYZhy{} I }
+          \PY{c+c1}{\PYZsh{} \PYZsh{} pick Lambda to start as identity matrix, for convenience purpose}
+          \PY{c+c1}{\PYZsh{} np.random.seed(seed=seed) \PYZsh{} check if we wrote this line, do we still need to write random\PYZus{}state=seed in .rvs()}
+          \PY{c+c1}{\PYZsh{} omega\PYZus{}post, beta\PYZus{}post, Lambda\PYZus{}post = np.zeros((iteration,)), np.zeros((iteration,X.shape[1])), np.zeros((iteration,X.shape[0],X.shape[0]))}
+          \PY{c+c1}{\PYZsh{} for i in range(iteration):}
+          \PY{c+c1}{\PYZsh{}     \PYZsh{} We sample omega and beta using the same function, since their posterior parameters share some non\PYZhy{}trivial }
+          \PY{c+c1}{\PYZsh{}     \PYZsh{} terms \PYZhy{}\PYZhy{} we can save ourselves from writing repetitive code by doing this.}
+          \PY{c+c1}{\PYZsh{}     omega\PYZus{}post[i], beta\PYZus{}post[i] = sample\PYZus{}omega\PYZus{}and\PYZus{}beta(X=X, Lambda=np.identity(X.shape[0]), d=d, eta=eta, K=K, y=y, m=m) if i==0 \PYZbs{}}
+          \PY{c+c1}{\PYZsh{}                             else sample\PYZus{}omega\PYZus{}and\PYZus{}beta(X=X, Lambda=Lambda\PYZus{}post[i\PYZhy{}1], d=d, eta=eta, K=K, y=y, m=m)}
+          \PY{c+c1}{\PYZsh{}     Lambda\PYZus{}post[i] = np.diag([*map(lambda j: sample\PYZus{}Lambda\PYZus{}j(X\PYZus{}j=X[j,:], y\PYZus{}j=y[j,0], \PYZbs{}}
+          \PY{c+c1}{\PYZsh{}                 h=h, omega\PYZus{}post=omega\PYZus{}post[i], beta\PYZus{}post=beta\PYZus{}post[i]), np.arange(X.shape[0]))])}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}219}]:} \PY{k}{def} \PY{n+nf}{sample\PYZus{}omega\PYZus{}and\PYZus{}beta}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{Lambda}\PY{p}{,} \PY{n}{d}\PY{p}{,} \PY{n}{eta}\PY{p}{,} \PY{n}{K}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{m}\PY{p}{)}\PY{p}{:}
+              \PY{n}{U} \PY{o}{=} \PY{p}{(}\PY{n}{X}\PY{o}{.}\PY{n}{T}\PY{p}{)}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{Lambda}\PY{p}{)}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{o}{+}\PY{n}{K}
+              \PY{n}{V} \PY{o}{=} \PY{p}{(}\PY{n}{y}\PY{o}{.}\PY{n}{T}\PY{p}{)}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{Lambda}\PY{p}{)}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{o}{+}\PY{p}{(}\PY{n}{m}\PY{o}{.}\PY{n}{T}\PY{p}{)}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{K}\PY{p}{)}
+              \PY{n}{post\PYZus{}omega\PYZus{}a} \PY{o}{=} \PY{p}{(}\PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{+}\PY{n}{d}\PY{p}{)}\PY{o}{/}\PY{l+m+mf}{2.}
+              \PY{n}{q} \PY{o}{=} \PY{p}{(}\PY{n}{y}\PY{o}{.}\PY{n}{T}\PY{p}{)}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{Lambda}\PY{p}{)}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{y}\PY{p}{)}\PY{o}{+}\PY{p}{(}\PY{n}{m}\PY{o}{.}\PY{n}{T}\PY{p}{)}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{K}\PY{p}{)}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{m}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{n}{V}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{inv}\PY{p}{(}\PY{n}{U}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{V}\PY{o}{.}\PY{n}{T}\PY{p}{)}
+              \PY{n}{post\PYZus{}omega\PYZus{}b} \PY{o}{=} \PY{p}{(}\PY{n}{eta}\PY{o}{+}\PY{n}{q}\PY{p}{)}\PY{o}{/}\PY{l+m+mf}{2.}
+              \PY{n}{omega\PYZus{}post} \PY{o}{=} \PY{n}{sps}\PY{o}{.}\PY{n}{gamma}\PY{o}{.}\PY{n}{rvs}\PY{p}{(}\PY{n}{a}\PY{o}{=}\PY{n}{post\PYZus{}omega\PYZus{}a}\PY{p}{,} \PY{n}{scale}\PY{o}{=}\PY{l+m+mf}{1.}\PY{o}{/}\PY{n}{post\PYZus{}omega\PYZus{}b}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+              \PY{n}{post\PYZus{}beta\PYZus{}mean} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{inv}\PY{p}{(}\PY{n}{U}\PY{p}{)}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{V}\PY{o}{.}\PY{n}{T}\PY{p}{)}
+              \PY{n}{post\PYZus{}beta\PYZus{}cov} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{inv}\PY{p}{(}\PY{n}{omega\PYZus{}post}\PY{o}{*}\PY{n}{U}\PY{p}{)}
+              \PY{n}{beta\PYZus{}post} \PY{o}{=} \PY{n}{sps}\PY{o}{.}\PY{n}{multivariate\PYZus{}normal}\PY{o}{.}\PY{n}{rvs}\PY{p}{(}\PY{n}{mean}\PY{o}{=}\PY{n}{post\PYZus{}beta\PYZus{}mean}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{cov}\PY{o}{=}\PY{n}{post\PYZus{}beta\PYZus{}cov}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+              \PY{c+c1}{\PYZsh{} note that beta\PYZus{}post is a (p,)\PYZhy{}shaped 1d array \PYZhy{}\PYZhy{} need to be cautious when calculating Lambda\PYZus{}i\PYZsq{}s parameter}
+              \PY{k}{return} \PY{n}{omega\PYZus{}post}\PY{p}{,} \PY{n}{beta\PYZus{}post}
+          
+          \PY{k}{def} \PY{n+nf}{sample\PYZus{}Lambda\PYZus{}j}\PY{p}{(}\PY{n}{X\PYZus{}j}\PY{p}{,} \PY{n}{y\PYZus{}j}\PY{p}{,} \PY{n}{h}\PY{p}{,} \PY{n}{omega\PYZus{}post}\PY{p}{,} \PY{n}{beta\PYZus{}post}\PY{p}{)}\PY{p}{:}
+              \PY{n}{post\PYZus{}Lambdaj\PYZus{}a} \PY{o}{=} \PY{p}{(}\PY{n}{h}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{/}\PY{l+m+mf}{2.}
+              \PY{n}{post\PYZus{}Lambdaj\PYZus{}b} \PY{o}{=} \PY{p}{(}\PY{n}{omega\PYZus{}post}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{power}\PY{p}{(}\PY{n}{y\PYZus{}j}\PY{o}{\PYZhy{}}\PY{n}{X\PYZus{}j}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{beta\PYZus{}post}\PY{o}{.}\PY{n}{T}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{+}\PY{n}{h}\PY{p}{)}\PY{o}{/}\PY{l+m+mf}{2.}
+              \PY{n}{Lambdaj\PYZus{}post} \PY{o}{=} \PY{n}{sps}\PY{o}{.}\PY{n}{gamma}\PY{o}{.}\PY{n}{rvs}\PY{p}{(}\PY{n}{a}\PY{o}{=}\PY{n}{post\PYZus{}Lambdaj\PYZus{}a}\PY{p}{,} \PY{n}{scale}\PY{o}{=}\PY{l+m+mf}{1.}\PY{o}{/}\PY{n}{post\PYZus{}Lambdaj\PYZus{}b}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+              \PY{k}{return} \PY{n}{Lambdaj\PYZus{}post}
+          
+          \PY{k}{def} \PY{n+nf}{gibbs\PYZus{}sampler\PYZus{}heavy\PYZus{}tailed}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{m}\PY{p}{,} \PY{n}{K}\PY{p}{,} \PY{n}{d}\PY{p}{,} \PY{n}{eta}\PY{p}{,} \PY{n}{h}\PY{p}{,} \PY{n}{iteration}\PY{p}{,} \PY{n}{burn\PYZus{}in}\PY{p}{,} \PY{n}{thinning}\PY{p}{,} \PY{n}{seed}\PY{p}{)}\PY{p}{:}
+              \PY{c+c1}{\PYZsh{} Sample Lambda, omega and beta from their posterior conditional distributions respectively: for Gibbs Sampling,}
+              \PY{c+c1}{\PYZsh{} all parameters depend on each other, thus we need to start with some parameter having some value already \PYZhy{}\PYZhy{} I }
+              \PY{c+c1}{\PYZsh{} pick Lambda to start as identity matrix, for convenience purpose}
+              \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{n}{seed}\PY{o}{=}\PY{n}{seed}\PY{p}{)} \PY{c+c1}{\PYZsh{} check if we wrote this line, do we still need to write random\PYZus{}state=seed in .rvs()}
+              \PY{n}{omega\PYZus{}post}\PY{p}{,} \PY{n}{beta\PYZus{}post}\PY{p}{,} \PY{n}{Lambda\PYZus{}post} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{iteration}\PY{p}{,}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{iteration}\PY{p}{,}\PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{iteration}\PY{p}{,}\PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+              \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{iteration}\PY{p}{)}\PY{p}{:}
+                  \PY{c+c1}{\PYZsh{} We sample omega and beta using the same function, since their posterior parameters share some non\PYZhy{}trivial }
+                  \PY{c+c1}{\PYZsh{} terms \PYZhy{}\PYZhy{} we can save ourselves from writing repetitive code by doing this.}
+                  \PY{n}{omega\PYZus{}post}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{beta\PYZus{}post}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{sample\PYZus{}omega\PYZus{}and\PYZus{}beta}\PY{p}{(}\PY{n}{X}\PY{o}{=}\PY{n}{X}\PY{p}{,} \PY{n}{Lambda}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{identity}\PY{p}{(}\PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{d}\PY{o}{=}\PY{n}{d}\PY{p}{,} \PY{n}{eta}\PY{o}{=}\PY{n}{eta}\PY{p}{,} \PY{n}{K}\PY{o}{=}\PY{n}{K}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{y}\PY{p}{,} \PY{n}{m}\PY{o}{=}\PY{n}{m}\PY{p}{)} \PY{k}{if} \PY{n}{i}\PY{o}{==}\PY{l+m+mi}{0} \PYZbs{}
+                                      \PY{k}{else} \PY{n}{sample\PYZus{}omega\PYZus{}and\PYZus{}beta}\PY{p}{(}\PY{n}{X}\PY{o}{=}\PY{n}{X}\PY{p}{,} \PY{n}{Lambda}\PY{o}{=}\PY{n}{Lambda\PYZus{}post}\PY{p}{[}\PY{n}{i}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{d}\PY{o}{=}\PY{n}{d}\PY{p}{,} \PY{n}{eta}\PY{o}{=}\PY{n}{eta}\PY{p}{,} \PY{n}{K}\PY{o}{=}\PY{n}{K}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{y}\PY{p}{,} \PY{n}{m}\PY{o}{=}\PY{n}{m}\PY{p}{)}
+                  \PY{n}{Lambda\PYZus{}post}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{diag}\PY{p}{(}\PY{p}{[}\PY{o}{*}\PY{n+nb}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{j}\PY{p}{:} \PY{n}{sample\PYZus{}Lambda\PYZus{}j}\PY{p}{(}\PY{n}{X\PYZus{}j}\PY{o}{=}\PY{n}{X}\PY{p}{[}\PY{n}{j}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{p}{,} \PY{n}{y\PYZus{}j}\PY{o}{=}\PY{n}{y}\PY{p}{[}\PY{n}{j}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PYZbs{}
+                              \PY{n}{h}\PY{o}{=}\PY{n}{h}\PY{p}{,} \PY{n}{omega\PYZus{}post}\PY{o}{=}\PY{n}{omega\PYZus{}post}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{beta\PYZus{}post}\PY{o}{=}\PY{n}{beta\PYZus{}post}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+              \PY{k}{return} \PY{n}{omega\PYZus{}post}\PY{p}{[}\PY{n}{burn\PYZus{}in}\PY{p}{:}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{p}{:}\PY{n}{thinning}\PY{p}{]}\PY{p}{,} \PY{n}{beta\PYZus{}post}\PY{p}{[}\PY{n}{burn\PYZus{}in}\PY{p}{:}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{p}{:}\PY{n}{thinning}\PY{p}{]}\PY{p}{,} \PY{n}{Lambda\PYZus{}post}\PY{p}{[}\PY{n}{burn\PYZus{}in}\PY{p}{:}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{p}{:}\PY{n}{thinning}\PY{p}{]}
+          
+          \PY{k}{def} \PY{n+nf}{make\PYZus{}plot\PYZus{}posterior\PYZus{}fitted\PYZus{}line}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{heavy\PYZus{}tailed\PYZus{}gibbs\PYZus{}beta}\PY{p}{,} \PY{n}{basic\PYZus{}beta}\PY{p}{)}\PY{p}{:}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{s}\PY{o}{=}\PY{l+m+mi}{7}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{X}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{heavy\PYZus{}tailed\PYZus{}gibbs\PYZus{}beta}\PY{p}{)}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{9}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Heavy\PYZhy{}Tailed NG}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{X}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{basic\PYZus{}beta}\PY{p}{)}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mediumseagreen}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{9}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Basic NG}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{X}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{inv}\PY{p}{(}\PY{p}{(}\PY{n}{X}\PY{o}{.}\PY{n}{T}\PY{p}{)}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{X}\PY{o}{.}\PY{n}{T}\PY{p}{)}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{y}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{orange}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{9}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{OLS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{best}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Fitted Lines Using Posterior \PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{mathbf}\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{beta\PYZcb{}\PYZdl{} Mean with Uninformative Prior}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{DEF60}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GR6096}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    I got drastically different results from setting the hyperparameters
+differently:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}220}]:} \PY{n}{hyperparam\PYZus{}m}\PY{p}{,} \PY{n}{hyperparam\PYZus{}K} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{o}{.}\PY{l+m+mi}{1}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{diag}\PY{p}{(}\PY{p}{[}\PY{o}{.}\PY{l+m+mi}{1}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+          \PY{n}{omega\PYZus{}post}\PY{p}{,} \PY{n}{beta\PYZus{}post}\PY{p}{,} \PY{n}{Lambda\PYZus{}post} \PY{o}{=} \PY{n}{gibbs\PYZus{}sampler\PYZus{}heavy\PYZus{}tailed}\PY{p}{(}\PY{n}{X}\PY{o}{=}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{y}\PY{p}{,} \PYZbs{}
+                                                  \PY{n}{m}\PY{o}{=}\PY{n}{hyperparam\PYZus{}m}\PY{o}{.}\PY{n}{T}\PY{p}{,} \PY{n}{K}\PY{o}{=}\PY{n}{hyperparam\PYZus{}K}\PY{p}{,} \PY{n}{d}\PY{o}{=}\PY{l+m+mf}{4.}\PY{p}{,} \PY{n}{eta}\PY{o}{=}\PY{l+m+mf}{4.}\PY{p}{,} \PY{n}{h}\PY{o}{=}\PY{l+m+mf}{4.}\PY{p}{,} \PYZbs{}
+                                                  \PY{n}{burn\PYZus{}in}\PY{o}{=}\PY{l+m+mi}{2000}\PY{p}{,} \PY{n}{thinning}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{iteration}\PY{o}{=}\PY{l+m+mi}{5000}\PY{p}{,} \PY{n}{seed}\PY{o}{=}\PY{l+m+mi}{2019}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{omega\PYZus{}post}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{beta\PYZus{}post}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}
+          \PY{n}{Beta\PYZus{}hat} \PY{o}{=} \PY{n}{basic\PYZus{}normal\PYZus{}gamma}\PY{p}{(}\PY{n}{X}\PY{o}{=}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{y}\PY{p}{,} \PY{n}{m}\PY{o}{=}\PY{n}{hyperparam\PYZus{}m}\PY{o}{.}\PY{n}{T}\PY{p}{,} \PY{n}{K}\PY{o}{=}\PY{n}{hyperparam\PYZus{}K}\PY{p}{)}
+          \PY{n}{make\PYZus{}plot\PYZus{}posterior\PYZus{}fitted\PYZus{}line}\PY{p}{(}\PY{n}{X}\PY{o}{=}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{y}\PY{p}{,} \PY{n}{heavy\PYZus{}tailed\PYZus{}gibbs\PYZus{}beta}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{beta\PYZus{}post}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{n}{basic\PYZus{}beta}\PY{o}{=}\PY{n}{Beta\PYZus{}hat}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+20.49363372127575 [0.01344076 0.1134165 ]
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_13_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}222}]:} \PY{n}{hyperparam\PYZus{}m}\PY{p}{,} \PY{n}{hyperparam\PYZus{}K} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{o}{.}\PY{l+m+mi}{5}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{diag}\PY{p}{(}\PY{p}{[}\PY{o}{.}\PY{l+m+mi}{2}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+          \PY{n}{omega\PYZus{}post}\PY{p}{,} \PY{n}{beta\PYZus{}post}\PY{p}{,} \PY{n}{Lambda\PYZus{}post} \PY{o}{=} \PY{n}{gibbs\PYZus{}sampler\PYZus{}heavy\PYZus{}tailed}\PY{p}{(}\PY{n}{X}\PY{o}{=}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{y}\PY{p}{,} \PYZbs{}
+                                                  \PY{n}{m}\PY{o}{=}\PY{n}{hyperparam\PYZus{}m}\PY{o}{.}\PY{n}{T}\PY{p}{,} \PY{n}{K}\PY{o}{=}\PY{n}{hyperparam\PYZus{}K}\PY{p}{,} \PY{n}{d}\PY{o}{=}\PY{l+m+mf}{4.}\PY{p}{,} \PY{n}{eta}\PY{o}{=}\PY{l+m+mf}{4.}\PY{p}{,} \PY{n}{h}\PY{o}{=}\PY{l+m+mf}{4.}\PY{p}{,} \PYZbs{}
+                                                  \PY{n}{burn\PYZus{}in}\PY{o}{=}\PY{l+m+mi}{2000}\PY{p}{,} \PY{n}{thinning}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{iteration}\PY{o}{=}\PY{l+m+mi}{5000}\PY{p}{,} \PY{n}{seed}\PY{o}{=}\PY{l+m+mi}{2019}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{omega\PYZus{}post}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{beta\PYZus{}post}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}
+          \PY{n}{Beta\PYZus{}hat} \PY{o}{=} \PY{n}{basic\PYZus{}normal\PYZus{}gamma}\PY{p}{(}\PY{n}{X}\PY{o}{=}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{y}\PY{p}{,} \PY{n}{m}\PY{o}{=}\PY{n}{hyperparam\PYZus{}m}\PY{o}{.}\PY{n}{T}\PY{p}{,} \PY{n}{K}\PY{o}{=}\PY{n}{hyperparam\PYZus{}K}\PY{p}{)}
+          \PY{n}{make\PYZus{}plot\PYZus{}posterior\PYZus{}fitted\PYZus{}line}\PY{p}{(}\PY{n}{X}\PY{o}{=}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{y}\PY{p}{,} \PY{n}{heavy\PYZus{}tailed\PYZus{}gibbs\PYZus{}beta}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{beta\PYZus{}post}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{n}{basic\PYZus{}beta}\PY{o}{=}\PY{n}{Beta\PYZus{}hat}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+20.235765470512728 [0.00677151 0.40191542]
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}223}]:} \PY{n}{hyperparam\PYZus{}m}\PY{p}{,} \PY{n}{hyperparam\PYZus{}K} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mf}{1.}\PY{p}{,} \PY{l+m+mf}{1.}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{diag}\PY{p}{(}\PY{p}{[}\PY{o}{.}\PY{l+m+mi}{05}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{05}\PY{p}{]}\PY{p}{)}
+          \PY{n}{omega\PYZus{}post}\PY{p}{,} \PY{n}{beta\PYZus{}post}\PY{p}{,} \PY{n}{Lambda\PYZus{}post} \PY{o}{=} \PY{n}{gibbs\PYZus{}sampler\PYZus{}heavy\PYZus{}tailed}\PY{p}{(}\PY{n}{X}\PY{o}{=}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{y}\PY{p}{,} \PYZbs{}
+                                                  \PY{n}{m}\PY{o}{=}\PY{n}{hyperparam\PYZus{}m}\PY{o}{.}\PY{n}{T}\PY{p}{,} \PY{n}{K}\PY{o}{=}\PY{n}{hyperparam\PYZus{}K}\PY{p}{,} \PY{n}{d}\PY{o}{=}\PY{l+m+mf}{4.}\PY{p}{,} \PY{n}{eta}\PY{o}{=}\PY{l+m+mf}{4.}\PY{p}{,} \PY{n}{h}\PY{o}{=}\PY{l+m+mf}{4.}\PY{p}{,} \PYZbs{}
+                                                  \PY{n}{burn\PYZus{}in}\PY{o}{=}\PY{l+m+mi}{2000}\PY{p}{,} \PY{n}{thinning}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{iteration}\PY{o}{=}\PY{l+m+mi}{5000}\PY{p}{,} \PY{n}{seed}\PY{o}{=}\PY{l+m+mi}{2019}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{omega\PYZus{}post}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{beta\PYZus{}post}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}
+          \PY{n}{Beta\PYZus{}hat} \PY{o}{=} \PY{n}{basic\PYZus{}normal\PYZus{}gamma}\PY{p}{(}\PY{n}{X}\PY{o}{=}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{y}\PY{p}{,} \PY{n}{m}\PY{o}{=}\PY{n}{hyperparam\PYZus{}m}\PY{o}{.}\PY{n}{T}\PY{p}{,} \PY{n}{K}\PY{o}{=}\PY{n}{hyperparam\PYZus{}K}\PY{p}{)}
+          \PY{n}{make\PYZus{}plot\PYZus{}posterior\PYZus{}fitted\PYZus{}line}\PY{p}{(}\PY{n}{X}\PY{o}{=}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{y}\PY{p}{,} \PY{n}{heavy\PYZus{}tailed\PYZus{}gibbs\PYZus{}beta}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{beta\PYZus{}post}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{n}{basic\PYZus{}beta}\PY{o}{=}\PY{n}{Beta\PYZus{}hat}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+20.169259954433763 [0.0028745  0.53369535]
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_15_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}224}]:} \PY{n}{hyperparam\PYZus{}m}\PY{p}{,} \PY{n}{hyperparam\PYZus{}K} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{o}{.}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mf}{5.}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{diag}\PY{p}{(}\PY{p}{[}\PY{o}{.}\PY{l+m+mi}{5}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{01}\PY{p}{]}\PY{p}{)}
+          \PY{n}{omega\PYZus{}post}\PY{p}{,} \PY{n}{beta\PYZus{}post}\PY{p}{,} \PY{n}{Lambda\PYZus{}post} \PY{o}{=} \PY{n}{gibbs\PYZus{}sampler\PYZus{}heavy\PYZus{}tailed}\PY{p}{(}\PY{n}{X}\PY{o}{=}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{y}\PY{p}{,} \PYZbs{}
+                                                  \PY{n}{m}\PY{o}{=}\PY{n}{hyperparam\PYZus{}m}\PY{o}{.}\PY{n}{T}\PY{p}{,} \PY{n}{K}\PY{o}{=}\PY{n}{hyperparam\PYZus{}K}\PY{p}{,} \PY{n}{d}\PY{o}{=}\PY{l+m+mf}{4.}\PY{p}{,} \PY{n}{eta}\PY{o}{=}\PY{l+m+mf}{4.}\PY{p}{,} \PY{n}{h}\PY{o}{=}\PY{l+m+mf}{4.}\PY{p}{,} \PYZbs{}
+                                                  \PY{n}{burn\PYZus{}in}\PY{o}{=}\PY{l+m+mi}{2000}\PY{p}{,} \PY{n}{thinning}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{iteration}\PY{o}{=}\PY{l+m+mi}{5000}\PY{p}{,} \PY{n}{seed}\PY{o}{=}\PY{l+m+mi}{2019}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{omega\PYZus{}post}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{beta\PYZus{}post}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}
+          \PY{n}{Beta\PYZus{}hat} \PY{o}{=} \PY{n}{basic\PYZus{}normal\PYZus{}gamma}\PY{p}{(}\PY{n}{X}\PY{o}{=}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{y}\PY{p}{,} \PY{n}{m}\PY{o}{=}\PY{n}{hyperparam\PYZus{}m}\PY{o}{.}\PY{n}{T}\PY{p}{,} \PY{n}{K}\PY{o}{=}\PY{n}{hyperparam\PYZus{}K}\PY{p}{)}
+          \PY{n}{make\PYZus{}plot\PYZus{}posterior\PYZus{}fitted\PYZus{}line}\PY{p}{(}\PY{n}{X}\PY{o}{=}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{y}\PY{p}{,} \PY{n}{heavy\PYZus{}tailed\PYZus{}gibbs\PYZus{}beta}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{beta\PYZus{}post}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{n}{basic\PYZus{}beta}\PY{o}{=}\PY{n}{Beta\PYZus{}hat}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+19.537814929069427 [-0.00620965  0.88867112]
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}225}]:} \PY{n}{hyperparam\PYZus{}m}\PY{p}{,} \PY{n}{hyperparam\PYZus{}K} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{o}{.}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mf}{1.}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{diag}\PY{p}{(}\PY{p}{[}\PY{o}{.}\PY{l+m+mi}{1}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+          \PY{n}{omega\PYZus{}post}\PY{p}{,} \PY{n}{beta\PYZus{}post}\PY{p}{,} \PY{n}{Lambda\PYZus{}post} \PY{o}{=} \PY{n}{gibbs\PYZus{}sampler\PYZus{}heavy\PYZus{}tailed}\PY{p}{(}\PY{n}{X}\PY{o}{=}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{y}\PY{p}{,} \PYZbs{}
+                                                  \PY{n}{m}\PY{o}{=}\PY{n}{hyperparam\PYZus{}m}\PY{o}{.}\PY{n}{T}\PY{p}{,} \PY{n}{K}\PY{o}{=}\PY{n}{hyperparam\PYZus{}K}\PY{p}{,} \PY{n}{d}\PY{o}{=}\PY{l+m+mf}{10.}\PY{p}{,} \PY{n}{eta}\PY{o}{=}\PY{l+m+mf}{2.}\PY{p}{,} \PY{n}{h}\PY{o}{=}\PY{l+m+mf}{4.}\PY{p}{,} \PYZbs{}
+                                                  \PY{n}{burn\PYZus{}in}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{,} \PY{n}{thinning}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{iteration}\PY{o}{=}\PY{l+m+mi}{3000}\PY{p}{,} \PY{n}{seed}\PY{o}{=}\PY{l+m+mi}{2019}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{omega\PYZus{}post}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{beta\PYZus{}post}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}
+          \PY{n}{Beta\PYZus{}hat} \PY{o}{=} \PY{n}{basic\PYZus{}normal\PYZus{}gamma}\PY{p}{(}\PY{n}{X}\PY{o}{=}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{y}\PY{p}{,} \PY{n}{m}\PY{o}{=}\PY{n}{hyperparam\PYZus{}m}\PY{o}{.}\PY{n}{T}\PY{p}{,} \PY{n}{K}\PY{o}{=}\PY{n}{hyperparam\PYZus{}K}\PY{p}{)}
+          \PY{n}{make\PYZus{}plot\PYZus{}posterior\PYZus{}fitted\PYZus{}line}\PY{p}{(}\PY{n}{X}\PY{o}{=}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{y}\PY{p}{,} \PY{n}{heavy\PYZus{}tailed\PYZus{}gibbs\PYZus{}beta}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{beta\PYZus{}post}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{n}{basic\PYZus{}beta}\PY{o}{=}\PY{n}{Beta\PYZus{}hat}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+42.685196504763844 [-0.00134849  0.72052501]
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}226}]:} \PY{n}{hyperparam\PYZus{}m}\PY{p}{,} \PY{n}{hyperparam\PYZus{}K} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{o}{.}\PY{l+m+mi}{4}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{diag}\PY{p}{(}\PY{p}{[}\PY{o}{.}\PY{l+m+mi}{01}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{01}\PY{p}{]}\PY{p}{)}
+          \PY{n}{omega\PYZus{}post}\PY{p}{,} \PY{n}{beta\PYZus{}post}\PY{p}{,} \PY{n}{Lambda\PYZus{}post} \PY{o}{=} \PY{n}{gibbs\PYZus{}sampler\PYZus{}heavy\PYZus{}tailed}\PY{p}{(}\PY{n}{X}\PY{o}{=}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{y}\PY{p}{,} \PYZbs{}
+                                                  \PY{n}{m}\PY{o}{=}\PY{n}{hyperparam\PYZus{}m}\PY{o}{.}\PY{n}{T}\PY{p}{,} \PY{n}{K}\PY{o}{=}\PY{n}{hyperparam\PYZus{}K}\PY{p}{,} \PY{n}{d}\PY{o}{=}\PY{l+m+mf}{4.}\PY{p}{,} \PY{n}{eta}\PY{o}{=}\PY{l+m+mf}{4.}\PY{p}{,} \PY{n}{h}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PYZbs{}
+                                                  \PY{n}{burn\PYZus{}in}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{thinning}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{iteration}\PY{o}{=}\PY{l+m+mi}{2000}\PY{p}{,} \PY{n}{seed}\PY{o}{=}\PY{l+m+mi}{2019}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{omega\PYZus{}post}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{beta\PYZus{}post}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}
+          \PY{n}{Beta\PYZus{}hat} \PY{o}{=} \PY{n}{basic\PYZus{}normal\PYZus{}gamma}\PY{p}{(}\PY{n}{X}\PY{o}{=}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{y}\PY{p}{,} \PY{n}{m}\PY{o}{=}\PY{n}{hyperparam\PYZus{}m}\PY{o}{.}\PY{n}{T}\PY{p}{,} \PY{n}{K}\PY{o}{=}\PY{n}{hyperparam\PYZus{}K}\PY{p}{)}
+          \PY{n}{make\PYZus{}plot\PYZus{}posterior\PYZus{}fitted\PYZus{}line}\PY{p}{(}\PY{n}{X}\PY{o}{=}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{y}\PY{p}{,} \PY{n}{heavy\PYZus{}tailed\PYZus{}gibbs\PYZus{}beta}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{beta\PYZus{}post}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{n}{basic\PYZus{}beta}\PY{o}{=}\PY{n}{Beta\PYZus{}hat}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+20.63854692821548 [0.0106661  0.28089819]
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_18_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}227}]:} \PY{n}{hyperparam\PYZus{}m}\PY{p}{,} \PY{n}{hyperparam\PYZus{}K} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{o}{.}\PY{l+m+mi}{4}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{diag}\PY{p}{(}\PY{p}{[}\PY{o}{.}\PY{l+m+mi}{01}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{01}\PY{p}{]}\PY{p}{)}
+          \PY{n}{omega\PYZus{}post}\PY{p}{,} \PY{n}{beta\PYZus{}post}\PY{p}{,} \PY{n}{Lambda\PYZus{}post} \PY{o}{=} \PY{n}{gibbs\PYZus{}sampler\PYZus{}heavy\PYZus{}tailed}\PY{p}{(}\PY{n}{X}\PY{o}{=}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{y}\PY{p}{,} \PYZbs{}
+                                                  \PY{n}{m}\PY{o}{=}\PY{n}{hyperparam\PYZus{}m}\PY{o}{.}\PY{n}{T}\PY{p}{,} \PY{n}{K}\PY{o}{=}\PY{n}{hyperparam\PYZus{}K}\PY{p}{,} \PY{n}{d}\PY{o}{=}\PY{l+m+mf}{4.}\PY{p}{,} \PY{n}{eta}\PY{o}{=}\PY{l+m+mf}{4.}\PY{p}{,} \PY{n}{h}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PYZbs{}
+                                                  \PY{n}{burn\PYZus{}in}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{,} \PY{n}{thinning}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{iteration}\PY{o}{=}\PY{l+m+mi}{3000}\PY{p}{,} \PY{n}{seed}\PY{o}{=}\PY{l+m+mi}{2019}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{omega\PYZus{}post}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{beta\PYZus{}post}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}
+          \PY{n}{Beta\PYZus{}hat} \PY{o}{=} \PY{n}{basic\PYZus{}normal\PYZus{}gamma}\PY{p}{(}\PY{n}{X}\PY{o}{=}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{y}\PY{p}{,} \PY{n}{m}\PY{o}{=}\PY{n}{hyperparam\PYZus{}m}\PY{o}{.}\PY{n}{T}\PY{p}{,} \PY{n}{K}\PY{o}{=}\PY{n}{hyperparam\PYZus{}K}\PY{p}{)}
+          \PY{n}{make\PYZus{}plot\PYZus{}posterior\PYZus{}fitted\PYZus{}line}\PY{p}{(}\PY{n}{X}\PY{o}{=}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{y}\PY{p}{,} \PY{n}{heavy\PYZus{}tailed\PYZus{}gibbs\PYZus{}beta}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{beta\PYZus{}post}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{n}{basic\PYZus{}beta}\PY{o}{=}\PY{n}{Beta\PYZus{}hat}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+20.73751463448962 [0.00939821 0.27047342]
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_19_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}228}]:} \PY{n}{hyperparam\PYZus{}m}\PY{p}{,} \PY{n}{hyperparam\PYZus{}K} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{o}{.}\PY{l+m+mi}{1}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{diag}\PY{p}{(}\PY{p}{[}\PY{o}{.}\PY{l+m+mi}{01}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{01}\PY{p}{]}\PY{p}{)}
+          \PY{n}{omega\PYZus{}post}\PY{p}{,} \PY{n}{beta\PYZus{}post}\PY{p}{,} \PY{n}{Lambda\PYZus{}post} \PY{o}{=} \PY{n}{gibbs\PYZus{}sampler\PYZus{}heavy\PYZus{}tailed}\PY{p}{(}\PY{n}{X}\PY{o}{=}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{y}\PY{p}{,} \PYZbs{}
+                                                  \PY{n}{m}\PY{o}{=}\PY{n}{hyperparam\PYZus{}m}\PY{o}{.}\PY{n}{T}\PY{p}{,} \PY{n}{K}\PY{o}{=}\PY{n}{hyperparam\PYZus{}K}\PY{p}{,} \PY{n}{d}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{02}\PY{p}{,} \PY{n}{eta}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{02}\PY{p}{,} \PY{n}{h}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{02}\PY{p}{,} \PYZbs{}
+                                                  \PY{n}{burn\PYZus{}in}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{,} \PY{n}{thinning}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{iteration}\PY{o}{=}\PY{l+m+mi}{3000}\PY{p}{,} \PY{n}{seed}\PY{o}{=}\PY{l+m+mi}{2019}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{omega\PYZus{}post}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{beta\PYZus{}post}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}
+          \PY{n}{Beta\PYZus{}hat} \PY{o}{=} \PY{n}{basic\PYZus{}normal\PYZus{}gamma}\PY{p}{(}\PY{n}{X}\PY{o}{=}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{y}\PY{p}{,} \PY{n}{m}\PY{o}{=}\PY{n}{hyperparam\PYZus{}m}\PY{o}{.}\PY{n}{T}\PY{p}{,} \PY{n}{K}\PY{o}{=}\PY{n}{hyperparam\PYZus{}K}\PY{p}{)}
+          \PY{n}{make\PYZus{}plot\PYZus{}posterior\PYZus{}fitted\PYZus{}line}\PY{p}{(}\PY{n}{X}\PY{o}{=}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{y}\PY{p}{,} \PY{n}{heavy\PYZus{}tailed\PYZus{}gibbs\PYZus{}beta}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{beta\PYZus{}post}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{n}{basic\PYZus{}beta}\PY{o}{=}\PY{n}{Beta\PYZus{}hat}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+1184.1271417265896 [0.00843949 0.30176747]
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}221}]:} \PY{n}{hyperparam\PYZus{}m}\PY{p}{,} \PY{n}{hyperparam\PYZus{}K} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{o}{.}\PY{l+m+mi}{1}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{diag}\PY{p}{(}\PY{p}{[}\PY{o}{.}\PY{l+m+mi}{01}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{01}\PY{p}{]}\PY{p}{)}
+          \PY{n}{omega\PYZus{}post}\PY{p}{,} \PY{n}{beta\PYZus{}post}\PY{p}{,} \PY{n}{Lambda\PYZus{}post} \PY{o}{=} \PY{n}{gibbs\PYZus{}sampler\PYZus{}heavy\PYZus{}tailed}\PY{p}{(}\PY{n}{X}\PY{o}{=}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{y}\PY{p}{,} \PYZbs{}
+                                                  \PY{n}{m}\PY{o}{=}\PY{n}{hyperparam\PYZus{}m}\PY{o}{.}\PY{n}{T}\PY{p}{,} \PY{n}{K}\PY{o}{=}\PY{n}{hyperparam\PYZus{}K}\PY{p}{,} \PY{n}{d}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{01}\PY{p}{,} \PY{n}{eta}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{01}\PY{p}{,} \PY{n}{h}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{01}\PY{p}{,} \PYZbs{}
+                                                  \PY{n}{burn\PYZus{}in}\PY{o}{=}\PY{l+m+mi}{2000}\PY{p}{,} \PY{n}{thinning}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{iteration}\PY{o}{=}\PY{l+m+mi}{5000}\PY{p}{,} \PY{n}{seed}\PY{o}{=}\PY{l+m+mi}{2019}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{omega\PYZus{}post}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{beta\PYZus{}post}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}
+          \PY{n}{Beta\PYZus{}hat} \PY{o}{=} \PY{n}{basic\PYZus{}normal\PYZus{}gamma}\PY{p}{(}\PY{n}{X}\PY{o}{=}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{y}\PY{p}{,} \PY{n}{m}\PY{o}{=}\PY{n}{hyperparam\PYZus{}m}\PY{o}{.}\PY{n}{T}\PY{p}{,} \PY{n}{K}\PY{o}{=}\PY{n}{hyperparam\PYZus{}K}\PY{p}{)}
+          \PY{n}{make\PYZus{}plot\PYZus{}posterior\PYZus{}fitted\PYZus{}line}\PY{p}{(}\PY{n}{X}\PY{o}{=}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{y}\PY{p}{,} \PY{n}{heavy\PYZus{}tailed\PYZus{}gibbs\PYZus{}beta}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{beta\PYZus{}post}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{n}{basic\PYZus{}beta}\PY{o}{=}\PY{n}{Beta\PYZus{}hat}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+1723.9231019177516 [0.00839377 0.30660034]
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_21_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{initial-observation}{%
+\subparagraph{Initial Observation:}\label{initial-observation}}
+
+I initialized my hyperparameters as:
+\(\mathbf{m}=\begin{bmatrix}0.1,0.1\end{bmatrix}^T\),
+\(\mathbf{K}=\text{diag}(0.1,0.1)\), \(d=1\), \(\eta=1\), \(h=1\).
+However, no matter after how much iteration, the fitted line varies a
+lot after each iteration -- my plots of iteration\(=5000\), \(5001\),
+\(5002\) look sharply different from each other. Before checking my
+implementation, I started to suspect if it was because of my
+initialization, as this was what happened last time I implemented Gibbs
+Sampler on Abhra's class. I gradually modified \(\mathbf{K}, h, d\), in
+which the first two didn't change much, change in \(d\) seems to
+decrease the differences after each iteration but still didn't quite
+solve the problem. Finally, I modified \(\mathbf{m}\) to current value,
+and with only \(2000\) iterations I had three plot looks almost
+identical except the intercept location, and all look robust against the
+outliers.
+
+My current hyperparameter setting:
+
+\(\mathbf{m}=\begin{bmatrix}1,1\end{bmatrix}^T\),
+\(\mathbf{K}=\text{diag}(2,2)\), \(d=5\), \(\eta=1\), \(h=4\).
+
+\hypertarget{update-on-above-comments}{%
+\subparagraph{Update on Above
+Comments:}\label{update-on-above-comments}}
+
+For Gibbs Sampling, we are not just looking at the very last sample --
+instead, we need to take the mean of all (burnt-in and thinned) samples
+to derive our posterior estimate of parameters. After we did that, the
+sample mean of posterior samples doesn't change much.
+
+\hypertarget{an-interesting-plot-will-be-the-posterior-mean-of-1lambda_i-for-each-country}{%
+\paragraph{\texorpdfstring{``An interesting plot will be the posterior
+mean of \(1/\lambda_i\) for each
+country''}{``An interesting plot will be the posterior mean of 1/\textbackslash{}lambda\_i for each country''}}\label{an-interesting-plot-will-be-the-posterior-mean-of-1lambda_i-for-each-country}}
+
+Let's try that:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}138}]:} \PY{n}{gdpgrowth}\PY{o}{.}\PY{n}{shape}\PY{p}{,} \PY{n}{gdpgrowth}\PY{o}{.}\PY{n}{COUNTRY}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}138}]:} ((79, 11), (79,))
+\end{Verbatim}
+            
+    Seems that each row is the data from a different country -- in other
+words, each \(\lambda_i\) matches to a different country. We thus make
+the following plots -- they are matched with the last two hyperparameter
+settings above:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}193}]:} \PY{n}{posterior\PYZus{}mean\PYZus{}inverse\PYZus{}lambda\PYZus{}i} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{o}{*}\PY{n+nb}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{i}\PY{p}{:} \PY{l+m+mi}{1}\PY{o}{/}\PY{n}{np}\PY{o}{.}\PY{n}{diagonal}\PY{p}{(}\PY{n}{Lambda\PYZus{}post}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{Lambda\PYZus{}post}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{posterior\PYZus{}mean\PYZus{}inverse\PYZus{}lambda\PYZus{}i}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{}plt.ylim((0,2))}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mean of \PYZdl{}1/}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{lambda\PYZus{}i\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Posterior Mean of Inverse Precision for Each Country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}193}]:} Text(0.5, 1.0, 'Posterior Mean of Inverse Precision for Each Country')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_25_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}192}]:} \PY{n}{posterior\PYZus{}mean\PYZus{}inverse\PYZus{}lambda\PYZus{}i}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}192}]:} array([1.98611577e+01, 3.84242325e+04, 2.10804899e+02, 1.44766083e+03,
+                 2.45436339e+03, 7.34649682e+00, 2.99598405e+01, 4.09904156e+03,
+                 2.90206579e+02, 4.07253999e+03, 7.64752957e+02, 1.35973837e+02,
+                 3.32161557e+02, 2.60010490e+03, 6.46328074e+01, 1.27207763e+02,
+                 7.21849886e+01, 2.62394263e+02, 6.23389572e+02, 3.19115496e+02,
+                 1.30803663e+02, 3.65747686e+02, 1.78109323e+03, 1.03582752e+02,
+                 2.47802113e+01, 7.91043619e+02, 3.50485762e+02, 4.59970109e+01,
+                 1.41348242e+05, 9.10590501e+02, 1.14232967e+01, 3.51240395e+01,
+                 5.37174621e+02, 3.23969790e+02, 9.35562524e+02, 6.01201665e+01,
+                 4.28252580e+01, 3.86764482e+02, 7.30854088e+02, 5.48275798e+01,
+                 2.70596537e+02, 3.28969318e+04, 1.98315669e+05, 4.64847946e+02,
+                 3.39101848e+02, 3.45693032e+02, 9.44115978e+01, 1.72910703e+02,
+                 5.11043494e+03, 8.75809941e+01, 1.76197907e+03, 1.21499404e+01,
+                 2.26623440e+04, 4.59853230e+02, 1.55625049e+03, 4.34958618e+04,
+                 7.11611420e+01, 9.89642478e+01, 2.21871313e+02, 1.37668363e+04,
+                 2.50867635e+01, 1.77404195e+04, 1.57052090e+03, 5.67158252e+02,
+                 4.62820313e+01, 4.82684894e+01, 5.46778075e+02, 2.35577626e+02,
+                 8.59869243e+04, 7.75103418e+01, 8.73873350e+00, 9.40135801e+01,
+                 2.75254713e+04, 7.72433138e+02, 1.27364360e+09, 1.44123046e+02,
+                 5.36573608e+01, 2.78808520e+03, 4.37608816e+01])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}195}]:} \PY{n}{posterior\PYZus{}mean\PYZus{}inverse\PYZus{}lambda\PYZus{}i} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{o}{*}\PY{n+nb}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{i}\PY{p}{:} \PY{l+m+mi}{1}\PY{o}{/}\PY{n}{np}\PY{o}{.}\PY{n}{diagonal}\PY{p}{(}\PY{n}{Lambda\PYZus{}post}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{Lambda\PYZus{}post}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{posterior\PYZus{}mean\PYZus{}inverse\PYZus{}lambda\PYZus{}i}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{}plt.ylim((0,2))}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mean of \PYZdl{}1/}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{lambda\PYZus{}i\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Posterior Mean of Inverse Precision for Each Country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}195}]:} Text(0.5, 1.0, 'Posterior Mean of Inverse Precision for Each Country')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_27_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}196}]:} \PY{n}{posterior\PYZus{}mean\PYZus{}inverse\PYZus{}lambda\PYZus{}i}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}196}]:} array([5.53757355e+01, 1.39681591e+03, 4.42560828e+03, 5.59728189e+03,
+                 8.26700369e+03, 4.10918103e+02, 8.18685464e+01, 1.37365392e+02,
+                 1.57648064e+02, 1.20631557e+03, 5.65618203e+01, 1.27067776e+02,
+                 4.39648776e+02, 2.82446467e+04, 4.88511189e+02, 7.93841570e+01,
+                 2.39717955e+02, 1.67744381e+04, 6.05469093e+02, 3.99631014e+02,
+                 9.43514983e+02, 2.04540405e+01, 3.39239925e+02, 1.95329002e+02,
+                 1.21881724e+01, 9.81460050e+05, 3.84049589e+03, 2.28532892e+01,
+                 1.00204840e+02, 1.47954985e+02, 7.24647346e+01, 6.91904424e+00,
+                 4.66929363e+02, 1.18986952e+01, 1.07263891e+07, 1.88943388e+02,
+                 5.69091819e+01, 1.07033515e+04, 2.75485999e+01, 4.71515656e+01,
+                 1.71194772e+04, 1.52603731e+02, 2.94785339e+04, 3.26006754e+01,
+                 6.39951343e+01, 6.18380283e+02, 9.22502329e+00, 1.51316522e+02,
+                 1.27549602e+04, 5.66377306e+02, 6.34074181e+02, 8.18510037e+00,
+                 7.74932378e+04, 1.16072309e+04, 7.83966348e+03, 5.04252097e+03,
+                 3.60176666e+02, 5.96161308e+01, 6.89898322e+02, 6.89108791e+03,
+                 8.42105882e+01, 1.13087797e+11, 1.84568664e+04, 2.67089471e+02,
+                 1.96213542e+02, 3.84644979e+02, 5.37133573e+02, 2.65913493e+02,
+                 6.06900615e+02, 1.02135710e+02, 1.93529300e+02, 2.51175304e+02,
+                 4.07432559e+04, 5.53947340e+01, 1.49479412e+01, 2.20417933e+03,
+                 4.26832989e+01, 2.00732937e+01, 7.27059622e+01])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}202}]:} \PY{n}{np}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}\PY{n}{posterior\PYZus{}mean\PYZus{}inverse\PYZus{}lambda\PYZus{}i}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}202}]:} 61
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{X}\PY{p}{[}\PY{l+m+mi}{61}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{y}\PY{p}{[}\PY{l+m+mi}{61}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}6}]:} (0.10000000099999999, 0.0658)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{gdpgrowth}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{61}\PY{p}{,}\PY{p}{:}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:} CODE              OAN
+        COUNTRY        Taiwan
+        GR6096         0.0658
+        DENS60        1.09504
+        COAST65        5.9724
+        POPGR6090    0.021919
+        EAST                1
+        DEF60             0.1
+        LGDP60        7.13569
+        EDUC60         0.0142
+        LIFE60           65.4
+        Name: 61, dtype: object
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{s}\PY{o}{=}\PY{l+m+mi}{7}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{l+m+mi}{61}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{y}\PY{p}{[}\PY{l+m+mi}{61}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Taiwan in Red}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:} Text(0.5, 1.0, 'Taiwan in Red')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_32_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}210}]:} \PY{n}{posterior\PYZus{}mean\PYZus{}inverse\PYZus{}lambda\PYZus{}i}\PY{p}{[}\PY{l+m+mi}{61}\PY{p}{]}\PY{p}{,} \PY{n}{gdpgrowth}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{COUNTRY}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{61}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}210}]:} (113087796523.7047, 'Taiwan')
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}211}]:} \PY{n}{posterior\PYZus{}mean\PYZus{}inverse\PYZus{}lambda\PYZus{}i}\PY{p}{[}\PY{l+m+mi}{53}\PY{p}{]}\PY{p}{,} \PY{n}{gdpgrowth}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{COUNTRY}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{53}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}211}]:} (11607.23093444131, 'Jordan')
+\end{Verbatim}
+            
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
